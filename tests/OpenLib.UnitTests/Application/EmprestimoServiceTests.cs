@@ -89,6 +89,20 @@ public class EmprestimoServiceTests
         pagina2.Should().HaveCount(1);
     }
 
+    [Theory]
+    [InlineData(0, 1)]
+    [InlineData(1, 0)]
+    [InlineData(-1, 2)]
+    public async Task ListarAsync_DeveLancarExcecao_QuandoParametrosInvalidos(int pagina, int tamanho)
+    {
+        await using var context = CriarContexto();
+        var service = CriarService(context);
+
+        var acao = async () => await service.ListarAsync(pagina, tamanho, CancellationToken.None);
+
+        await acao.Should().ThrowAsync<ArgumentOutOfRangeException>();
+    }
+
     private static EmprestimoService CriarService(LibraryDbContext context)
     {
         var emprestimoRepository = new EmprestimoRepository(context);

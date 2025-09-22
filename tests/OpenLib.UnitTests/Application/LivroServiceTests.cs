@@ -51,6 +51,22 @@ public class LivroServiceTests
         pagina2.Select(l => l.Titulo).Should().Contain("Livro 3");
     }
 
+    [Theory]
+    [InlineData(0, 1)]
+    [InlineData(1, 0)]
+    [InlineData(-1, 5)]
+    public async Task ListarAsync_DeveLancarExcecao_QuandoParametrosPaginacaoInvalidos(int pagina, int tamanho)
+    {
+        await using var context = CriarContexto();
+        var repository = new LivroRepository(context);
+        var unitOfWork = new UnitOfWork(context);
+        var service = new LivroService(repository, unitOfWork, NullLogger<LivroService>.Instance);
+
+        var acao = async () => await service.ListarAsync(pagina, tamanho, CancellationToken.None);
+
+        await acao.Should().ThrowAsync<ArgumentOutOfRangeException>();
+    }
+
     private static LibraryDbContext CriarContexto()
     {
         var options = new DbContextOptionsBuilder<LibraryDbContext>()

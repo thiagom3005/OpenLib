@@ -44,6 +44,11 @@ public class LivrosController : ControllerBase
         [FromQuery] int tamanho = 10
         )
     {
+        if (PaginationGuard.Validate(this, pagina, tamanho) is { } invalidResult)
+        {
+            return invalidResult;
+        }
+
         var livros = await _livroService.ListarAsync(pagina, tamanho, cancellationToken);
         return Ok(livros);
     }

@@ -61,6 +61,16 @@ public class EmprestimoService : IEmprestimoService
 
     public async Task<IReadOnlyCollection<EmprestimoDto>> ListarAsync(int pagina, int tamanho, CancellationToken cancellationToken)
     {
+        if (pagina < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(pagina), "O parâmetro pagina deve ser maior ou igual a 1.");
+        }
+
+        if (tamanho < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(tamanho), "O parâmetro tamanho deve ser maior ou igual a 1.");
+        }
+
         var emprestimos = await _emprestimoRepository.ListarAsync(pagina, tamanho, cancellationToken);
         return emprestimos.Select(EmprestimoDto.FromEntity).ToList();
     }
