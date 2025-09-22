@@ -1,6 +1,6 @@
 # OpenLib - Gestão de Bibliotecas Comunitárias
 
-Projeto de referência para um back-end em **.NET 8** que aplica conceitos de *Clean Architecture* e domínio rico para gerenciar livros e empréstimos em bibliotecas comunitárias.
+Projeto para um back-end em **.NET 8** que aplica conceitos de *Clean Architecture* e domínio rico para gerenciar livros e empréstimos em bibliotecas comunitárias.
 
 ## 🏗️ Arquitetura
 
@@ -29,14 +29,7 @@ OpenLib.sln
 
 ## ⚙️ Configuração
 
-1. **Clonar o repositório**
-
-   ```bash
-   git clone <url-do-repositorio>
-   cd OpenLib
-   ```
-
-2. **Configurar string de conexão**
+1. **Configurar string de conexão**
 
    Ajuste `ConnectionStrings:DefaultConnection` em `src/OpenLib.Api/appsettings.json` com as credenciais do seu PostgreSQL.
 
@@ -80,7 +73,3 @@ Os testes automatizados validam as regras de domínio e os serviços de aplicaç
 - Separação clara de responsabilidades entre camadas.
 - Unit of Work para consistência das operações de escrita.
 - Repositórios e serviços de aplicação assíncronos.
-
-## 📄 Licença
-
-Projeto criado para fins educacionais.
