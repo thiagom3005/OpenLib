@@ -22,5 +22,6 @@
     <ProjectReference Include="..\..\src\OpenLib.Domain\OpenLib.Domain.csproj" />
     <ProjectReference Include="..\..\src\OpenLib.Application\OpenLib.Application.csproj" />
     <ProjectReference Include="..\..\src\OpenLib.Infrastructure\OpenLib.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\OpenLib.Api\OpenLib.Api.csproj" />
   </ItemGroup>
 </Project>

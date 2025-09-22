@@ -65,6 +65,11 @@ public class EmprestimosController : ControllerBase
         [FromQuery] int pagina = 1,
         [FromQuery] int tamanho = 10)
     {
+        if (PaginationGuard.Validate(this, pagina, tamanho) is { } invalidResult)
+        {
+            return invalidResult;
+        }
+
         var emprestimos = await _emprestimoService.ListarAsync(pagina, tamanho, cancellationToken);
         return Ok(emprestimos);
     }
