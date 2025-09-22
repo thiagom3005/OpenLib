@@ -5,7 +5,6 @@ using OpenLib.Application.Abstractions.Repositories;
 using OpenLib.Application.Abstractions.UnitOfWork;
 using OpenLib.Infrastructure.Persistence;
 using OpenLib.Infrastructure.Repositories;
-using OpenLib.Infrastructure.UnitOfWork;
 
 namespace OpenLib.Infrastructure.DependencyInjection;
 
@@ -21,7 +20,7 @@ public static class ServiceCollectionExtensions
 
         services.AddScoped<ILivroRepository, LivroRepository>();
         services.AddScoped<IEmprestimoRepository, EmprestimoRepository>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 
         return services;
     }

@@ -19,13 +19,18 @@ public class LivroRepository : ILivroRepository
         await _context.Livros.AddAsync(livro, cancellationToken);
     }
 
-    public Task<Livro?> ObterPorIdAsync(Guid id, CancellationToken cancellationToken)
+    public Task<Livro?> ObterPorIdAsync(int id, CancellationToken cancellationToken)
     {
         return _context.Livros.FirstOrDefaultAsync(l => l.Id == id, cancellationToken);
     }
 
-    public async Task<IReadOnlyList<Livro>> ListarAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<Livro>> ListarAsync(int pagina, int tamanho, CancellationToken cancellationToken)
     {
-        return await _context.Livros.AsNoTracking().OrderBy(l => l.Titulo).ToListAsync(cancellationToken);
+        return await _context.Livros
+            .AsNoTracking()
+            .OrderBy(l => l.Titulo)
+            .Skip((pagina - 1) * tamanho)
+            .Take(tamanho)
+            .ToListAsync(cancellationToken);
     }
 }

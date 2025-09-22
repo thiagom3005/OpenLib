@@ -30,15 +30,15 @@ public class LivroService : ILivroService
         return LivroDto.FromEntity(livro);
     }
 
-    public async Task<LivroDto?> ObterPorIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<LivroDto?> ObterPorIdAsync(int id, CancellationToken cancellationToken)
     {
         var livro = await _livroRepository.ObterPorIdAsync(id, cancellationToken);
         return livro is null ? null : LivroDto.FromEntity(livro);
     }
 
-    public async Task<IReadOnlyCollection<LivroDto>> ListarAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<LivroDto>> ListarAsync(int pagina, int tamanho, CancellationToken cancellationToken)
     {
-        var livros = await _livroRepository.ListarAsync(cancellationToken);
+        var livros = await _livroRepository.ListarAsync(pagina, tamanho, cancellationToken);
         return livros.Select(LivroDto.FromEntity).ToList();
     }
 }

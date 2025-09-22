@@ -2,6 +2,7 @@ using FluentAssertions;
 using OpenLib.Domain.Entities;
 using OpenLib.Domain.Enums;
 using OpenLib.Domain.Exceptions;
+using Xunit;
 
 namespace OpenLib.UnitTests.Domain;
 
@@ -10,7 +11,7 @@ public class EmprestimoTests
     [Fact]
     public void Solicitar_DeveCriarEmprestimo_QuandoLivroDisponivel()
     {
-        var livro = Livro.Criar("DDD Quickly", "Eric Evans", 2004, 1);
+        var livro = Livro.Criar("DDD Quickly", "Eric Evans", 2004, 1, 1);
 
         var emprestimo = Emprestimo.Solicitar(livro, DateTime.UtcNow);
 
@@ -31,7 +32,7 @@ public class EmprestimoTests
     [Fact]
     public void Devolver_DeveAtualizarStatusEQuantidade()
     {
-        var livro = Livro.Criar("Test", "Autor", 2021, 2);
+        var livro = Livro.Criar("Test", "Autor", 2021, 2, 1);
         var emprestimo = Emprestimo.Solicitar(livro, DateTime.UtcNow);
 
         emprestimo.Devolver(livro, DateTime.UtcNow);
@@ -43,7 +44,7 @@ public class EmprestimoTests
     [Fact]
     public void Devolver_DeveLancarExcecao_QuandoEmprestimoJaDevolvido()
     {
-        var livro = Livro.Criar("Book", "Autor", 2022, 1);
+        var livro = Livro.Criar("Book", "Autor", 2022, 1, 1);
         var emprestimo = Emprestimo.Solicitar(livro, DateTime.UtcNow);
         emprestimo.Devolver(livro, DateTime.UtcNow);
 

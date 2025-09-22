@@ -15,7 +15,6 @@ public class Livro
 
     private Livro(string titulo, string autor, int anoPublicacao, int quantidadeDisponivel)
     {
-        Id = Guid.NewGuid();
         Titulo = titulo;
         Autor = autor;
         AnoPublicacao = anoPublicacao;
@@ -23,15 +22,21 @@ public class Livro
         Validar();
     }
 
-    public Guid Id { get; private set; }
+    public int Id { get; private set; }
     public string Titulo { get; private set; } = string.Empty;
     public string Autor { get; private set; } = string.Empty;
     public int AnoPublicacao { get; private set; }
     public int QuantidadeDisponivel { get; private set; }
 
-    public static Livro Criar(string titulo, string autor, int anoPublicacao, int quantidadeDisponivel)
+    public static Livro Criar(string titulo, string autor, int anoPublicacao, int quantidadeDisponivel, int id = 0)
     {
-        return new Livro(titulo, autor, anoPublicacao, quantidadeDisponivel);
+        var livro = new Livro(titulo, autor, anoPublicacao, quantidadeDisponivel);
+        if (id > 0)
+        {
+            livro.Id = id;
+        }
+        livro.Validar();
+        return livro;
     }
 
     public void RegistrarEmprestimo()

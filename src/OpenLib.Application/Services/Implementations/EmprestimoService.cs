@@ -3,7 +3,6 @@ using OpenLib.Application.Abstractions.Repositories;
 using OpenLib.Application.Abstractions.UnitOfWork;
 using OpenLib.Application.DTOs;
 using OpenLib.Domain.Entities;
-using OpenLib.Domain.Exceptions;
 
 namespace OpenLib.Application.Services.Implementations;
 
@@ -39,7 +38,7 @@ public class EmprestimoService : IEmprestimoService
         return EmprestimoDto.FromEntity(emprestimo);
     }
 
-    public async Task<EmprestimoDto> DevolverAsync(Guid id, DevolverEmprestimoRequest request, CancellationToken cancellationToken)
+    public async Task<EmprestimoDto> DevolverAsync(int id, DevolverEmprestimoRequest request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Devolvendo empréstimo {EmprestimoId}", id);
         var emprestimo = await _emprestimoRepository.ObterPorIdAsync(id, cancellationToken)
@@ -54,15 +53,15 @@ public class EmprestimoService : IEmprestimoService
         return EmprestimoDto.FromEntity(emprestimo);
     }
 
-    public async Task<EmprestimoDto?> ObterPorIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<EmprestimoDto?> ObterPorIdAsync(int id, CancellationToken cancellationToken)
     {
         var emprestimo = await _emprestimoRepository.ObterPorIdAsync(id, cancellationToken);
         return emprestimo is null ? null : EmprestimoDto.FromEntity(emprestimo);
     }
 
-    public async Task<IReadOnlyCollection<EmprestimoDto>> ListarAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<EmprestimoDto>> ListarAsync(int pagina, int tamanho, CancellationToken cancellationToken)
     {
-        var emprestimos = await _emprestimoRepository.ListarAsync(cancellationToken);
+        var emprestimos = await _emprestimoRepository.ListarAsync(pagina, tamanho, cancellationToken);
         return emprestimos.Select(EmprestimoDto.FromEntity).ToList();
     }
 }

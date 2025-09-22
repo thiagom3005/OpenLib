@@ -1,3 +1,3 @@
 namespace OpenLib.Application.DTOs;
 
-public record SolicitarEmprestimoRequest(Guid LivroId, DateTime DataEmprestimo);
+public record SolicitarEmprestimoRequest(int LivroId, DateTime DataEmprestimo);

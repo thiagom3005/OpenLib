@@ -14,6 +14,14 @@ public class LibraryDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Livro>()
+            .Property(l => l.Id)
+            .ValueGeneratedOnAdd();
+
+        modelBuilder.Entity<Emprestimo>()
+            .Property(l => l.Id)
+            .ValueGeneratedOnAdd();
+
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(LibraryDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
     }

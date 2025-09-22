@@ -30,17 +30,21 @@ public class LivrosController : ControllerBase
         }
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<LivroDto>> ObterPorId(Guid id, CancellationToken cancellationToken)
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<LivroDto>> ObterPorId(int id, CancellationToken cancellationToken)
     {
         var livro = await _livroService.ObterPorIdAsync(id, cancellationToken);
         return livro is null ? NotFound() : Ok(livro);
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyCollection<LivroDto>>> Listar(CancellationToken cancellationToken)
+    public async Task<ActionResult<IReadOnlyCollection<LivroDto>>> Listar(
+        CancellationToken cancellationToken,
+        [FromQuery] int pagina = 1,
+        [FromQuery] int tamanho = 10
+        )
     {
-        var livros = await _livroService.ListarAsync(cancellationToken);
+        var livros = await _livroService.ListarAsync(pagina, tamanho, cancellationToken);
         return Ok(livros);
     }
 }

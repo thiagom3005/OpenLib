@@ -14,17 +14,16 @@ public class Emprestimo
     {
     }
 
-    private Emprestimo(Guid livroId, DateTime dataEmprestimo)
+    private Emprestimo(int livroId, DateTime dataEmprestimo)
     {
-        Id = Guid.NewGuid();
         LivroId = livroId;
         DataEmprestimo = dataEmprestimo;
         Status = EmprestimoStatus.Ativo;
         Validar();
     }
 
-    public Guid Id { get; private set; }
-    public Guid LivroId { get; private set; }
+    public int Id { get; private set; }
+    public int LivroId { get; private set; }
     public Livro Livro { get; private set; } = null!;
     public DateTime DataEmprestimo { get; private set; }
     public DateTime? DataDevolucao { get; private set; }

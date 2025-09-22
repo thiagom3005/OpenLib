@@ -34,8 +34,8 @@ public class EmprestimosController : ControllerBase
         }
     }
 
-    [HttpPost("{id:guid}/devolver")]
-    public async Task<ActionResult<EmprestimoDto>> Devolver(Guid id, [FromBody] DevolverEmprestimoRequest request, CancellationToken cancellationToken)
+    [HttpPost("{id:int}/devolver")]
+    public async Task<ActionResult<EmprestimoDto>> Devolver(int id, [FromBody] DevolverEmprestimoRequest request, CancellationToken cancellationToken)
     {
         try
         {
@@ -52,17 +52,20 @@ public class EmprestimosController : ControllerBase
         }
     }
 
-    [HttpGet("{id:guid}")]
-    public async Task<ActionResult<EmprestimoDto>> ObterPorId(Guid id, CancellationToken cancellationToken)
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<EmprestimoDto>> ObterPorId(int id, CancellationToken cancellationToken)
     {
         var emprestimo = await _emprestimoService.ObterPorIdAsync(id, cancellationToken);
         return emprestimo is null ? NotFound() : Ok(emprestimo);
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyCollection<EmprestimoDto>>> Listar(CancellationToken cancellationToken)
+    public async Task<ActionResult<IReadOnlyCollection<EmprestimoDto>>> Listar(
+        CancellationToken cancellationToken,
+        [FromQuery] int pagina = 1,
+        [FromQuery] int tamanho = 10)
     {
-        var emprestimos = await _emprestimoService.ListarAsync(cancellationToken);
+        var emprestimos = await _emprestimoService.ListarAsync(pagina, tamanho, cancellationToken);
         return Ok(emprestimos);
     }
 }
