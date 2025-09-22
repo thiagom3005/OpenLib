@@ -29,7 +29,14 @@ OpenLib.sln
 
 ## ⚙️ Configuração
 
-1. **Configurar string de conexão**
+1. **Clonar o repositório**
+
+   ```bash
+   git clone <url-do-repositorio>
+   cd OpenLib
+   ```
+
+2. **Configurar string de conexão**
 
    Ajuste `ConnectionStrings:DefaultConnection` em `src/OpenLib.Api/appsettings.json` com as credenciais do seu PostgreSQL.
 
